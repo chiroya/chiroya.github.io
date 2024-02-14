@@ -459,7 +459,7 @@ div#maincontent{
     outline:0
 }
 
-
+/* 갤러리 - 페이지네이션 */
 .pagination{
     width: 250px;
     display: flex;
