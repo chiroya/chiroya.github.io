@@ -3,7 +3,7 @@
  * Copyright 2013-2016 Start Bootstrap
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
  */
-
+ 
 body{
     font-family:Lato,'Helvetica Neue',Helvetica,Arial,sans-serif
     ;overflow-x:hidden
@@ -178,10 +178,10 @@ section.success{
     }
 }
 
-/* #portfolio .portfolio-item{
+#portfolio .portfolio-item{
     margin:0 0 15px;
     right:0
-} */
+}
 #portfolio .portfolio-item .portfolio-link{
     display:block;
     position:relative;
@@ -221,11 +221,11 @@ section.success{
     z-index:2
 }
 
-/* @media (min-width:767px){
+@media (min-width:767px){
     #portfolio .portfolio-item{
         margin:0 0 30px
     }
-} */
+}
 
 .floating-label-form-group{
     position:relative;
@@ -459,42 +459,7 @@ div#maincontent{
     outline:0
 }
 
-
 img { 
     display:block; 
-}
-
-
-
-
-
-
-
-
-/* swiper module */
-
-swiper-container {
-    width: 100%;
-    height: 50vh;
-    margin: 0;
-}
-
-swiper-slide {
-    text-align: center;
-    font-size: 18px;
-    background: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-swiper-slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.col-sm-4 {
-    display: flex;
-    width: auto;
+    margin:auto; 
 }
