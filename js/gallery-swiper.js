@@ -12,7 +12,8 @@ document.addEventListener('DOMContentLoaded', function () {
         'https://qrcodethumb-phinf.pstatic.net//20241007_230/1728240478068j098G_PNG/008.png', 
         'https://qrcodethumb-phinf.pstatic.net//20241007_240/1728240477972FyiLG_PNG/004.png', 
         'https://qrcodethumb-phinf.pstatic.net//20241007_100/1728240478010xTgNN_PNG/009.png', 
-        'https://qrcodethumb-phinf.pstatic.net//20241007_224/17282404779570lF8X_JPEG/007.jpg'
+        'https://qrcodethumb-phinf.pstatic.net//20241007_224/17282404779570lF8X_JPEG/007.jpg',
+        'https://qrcodethumb-phinf.pstatic.net//20241007_155/1728240478074zGdph_PNG/001.png',
     ]
 
 
