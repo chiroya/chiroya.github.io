@@ -7,9 +7,9 @@ name: gallery-img_scraper
 
 on:
     # 특정 시간대마다 실행
-    # cron 표현식
+    # cron 표현식 - https://crontab.guru/ 참고
     schedule : 
-        - cron : "30 * * * *"
+        - cron : "0 12 * * *"
 
   # push:
   #   branches: [ "main" ]
@@ -38,10 +38,7 @@ jobs:
         pip install beautifulsoup4
         pip install asyncio
         pip install aiohttp
-        pip install schedule
-        pip install time
         pip install json
-        pip install lxml
 
     # 파이썬 파일 실행  
     - name: run my file
