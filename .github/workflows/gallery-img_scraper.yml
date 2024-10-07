@@ -1,0 +1,67 @@
+# This workflow will install Python dependencies, run tests and lint with a variety of Python versions
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+
+name: gallery-img_scraper
+
+# on : 어떤 조건일 때 파일을 실행시킬 지
+
+on:
+    # 특정 시간대마다 실행
+    # cron 표현식
+    schedule : 
+        - cron : "30 * * * *"
+
+  # push:
+  #   branches: [ "main" ]
+  # pull_request:
+  #   branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+
+    # 라이브러리 설치
+    - name: Install Libraries
+      run: | 
+        pip install requests
+        pip install beautifulsoup4
+        pip install asyncio
+        pip install aiohttp
+        pip install schedule
+        pip install time
+        pip install json
+        pip install lxml
+
+    # 파이썬 파일 실행  
+    - name: run my file
+      run: |
+        python module/crawler/logic_async.py
+
+    # 커밋
+    - name: commits
+      run: |
+         git config --global user.email "chiroyawn@gmail.com"
+         git config --global user.name "chiroya"
+         git add images.json
+         git commit -m "이미지 크롤링 완료"
+
+    # # 푸시
+    # - name : push
+    #   uses : ad-m/github-push-action@master
+    #   with : 
+    #       branch : "main"
+    #       github_token : $
+      
+
+         
