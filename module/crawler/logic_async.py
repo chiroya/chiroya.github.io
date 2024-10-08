@@ -1,10 +1,7 @@
-import requests
 from bs4 import BeautifulSoup
 import asyncio
 import json
 import aiohttp
-import schedule
-import time
 
 ################################
 # 이미지 크롤링 - 비동기 처리
