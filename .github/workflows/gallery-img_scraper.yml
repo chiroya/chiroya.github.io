@@ -20,6 +20,9 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.8, 3.9, 3.10]
     
     steps:
     - uses: actions/checkout@v4
@@ -34,11 +37,7 @@ jobs:
     # 라이브러리 설치
     - name: Install Libraries
       run: | 
-        pip install requests
-        pip install beautifulsoup4
-        pip install asyncio
-        pip install aiohttp
-        pip install json
+        pip install --no-cache-dir requests beautifulsoup4 asyncio aiohttp
 
     # 파이썬 파일 실행  
     - name: run my file
