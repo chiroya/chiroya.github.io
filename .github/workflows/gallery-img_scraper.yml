@@ -37,7 +37,7 @@ jobs:
     # 라이브러리 설치
     - name: Install Libraries
       run: | 
-        pip install --no-cache-dir requests beautifulsoup4 asyncio aiohttp
+        pip install requests beautifulsoup4 asyncio aiohttp
 
     # 파이썬 파일 실행  
     - name: run my file
