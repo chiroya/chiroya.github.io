@@ -31,7 +31,7 @@ async def get_image_list():
 
         
 
-    # 첫 번째 이미지 URL을 제외한 고유한 이미지 URL을 출력
+    # 이미지 링크를 리스트 화
     img_list = list(set(img_urls) - {None})[0:]     # set에 대한 차집합을 통해 None 값 제거
 
     return img_list
