@@ -9,7 +9,7 @@ on:
     # 특정 시간대마다 실행
     # cron 표현식 - https://crontab.guru/ 참고
     schedule : 
-        - cron : "40 * * * *"
+        - cron : "0 12 * * *"
 
   # push:
   #   branches: [ "main" ]
