@@ -24,10 +24,12 @@
 
 .mascot {
     position: absolute;
-    top: -120px; /* wrapper의 상단에서 100px 위 */
-    left: 25%;
-    width: 100px; /* 원하는 크기로 조정 */
-    height: auto;
+    text-align: center;
+    justify-content: center;
+    left: 15%;
+    top: -133px;
+    width: 122px; /* 원하는 크기로 조정 */
+    height: 122px;
     filter: drop-shadow(2.2px 2.2px 2.2px rgba(0,0,0,0.6));
     animation: mascot 2.22s infinite;
     z-index: 2;
