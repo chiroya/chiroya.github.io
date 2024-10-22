@@ -22,6 +22,8 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
 
+    <!-- Page-Preloader CSS -->
+    <link rel="stylesheet" href="css/page-preloader.css">
 
     <!-- Swiper Module CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
@@ -43,15 +45,42 @@
 
 
 
-
-
-
-
-
 </head>
+
+
+
 
 <body id="page-top" class="index">
 <div id="skipnav"><a href="#maincontent">Skip to main content</a></div>
+
+
+    <!-- Preloading Animation -->
+    <div class="preloader">
+        <div class="pl-wrapper">
+            <img src="img/mascot.png" class="mascot">
+            
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="shadow"></div>
+            <div class="shadow"></div>
+            <div class="shadow"></div>
+            <div class="pl-text">
+                <span class="pl-letter">L</span>
+                <span class="pl-letter">o</span>
+                <span class="pl-letter">a</span>
+                <span class="pl-letter">d</span>
+                <span class="pl-letter">i</span>
+                <span class="pl-letter">n</span>
+                <span class="pl-letter">g</span>
+                <span class="pl-letter">.</span>
+                <span class="pl-letter">.</span>
+                <span class="pl-letter">.</span>
+            </div>
+        </div>
+    </div>
+
+
 
     <!-- Navigation -->
     <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
@@ -381,7 +410,9 @@
     <!-- Theme JavaScript -->
     <script src="js/freelancer.min.js"></script>
 
-    
+    <!-- Page-Preloader JS -->
+    <script src="js/page-preloader.js"></script>
+
     <!-- Swiper Module JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
