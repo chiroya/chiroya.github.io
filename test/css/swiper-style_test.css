@@ -1,0 +1,50 @@
+html,
+body {
+    position: relative;
+    height: 100%;
+}
+
+body {
+    background: #eee;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color: #000;
+    margin: 0;
+    padding: 0;
+}
+
+.swiper-container {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-wrapper {
+    display: flex; /* 슬라이드 래퍼에 flexbox 적용 */
+}
+
+.swiper-slide {
+    display: flex; /* 슬라이드에 flexbox 적용 */
+    justify-content: center; /* 수평 중앙 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+}
+
+.portfolio-item {
+    display: flex; /* 포트폴리오 항목에 flexbox 적용 */
+    justify-content: center; /* 이미지 수평 중앙 정렬 */
+    align-items: center; /* 이미지 수직 중앙 정렬 */
+    width: 100%; /* 전체 너비 차지 */
+    height: 100%; /* 전체 높이 차지 */
+}
+
+.swiper-slide img {
+    display: block;
+    max-width: 100%; /* 이미지가 넘치지 않도록 설정 */
+    max-height: 100%; /* 이미지가 넘치지 않도록 설정 */
+    object-fit: cover; /* 이미지를 공간에 맞게 조정 */
+}

@@ -1,0 +1,8 @@
+
+html {
+    cursor: url('../src/handmade_broom-cursor.png'), default;
+}
+
+a, button {
+    cursor: url('../src/luminarie_neon-wand-cursor.png'), pointer;
+}
