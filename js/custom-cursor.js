@@ -1,49 +1,39 @@
-/*!
- * Fairy Dust Cursor.js
- * - 90's cursors collection
- * -- https://github.com/tholman/90s-cursor-effects
- * -- https://codepen.io/tholman/full/jWmZxZ/
- */
-
 (function fairyDustCursor() {
     var possibleColors = ["#D61C59", "#E7D84B", "#1B8798"];
-    var width = window.innerWidth;
-    var height = window.innerHeight;
-    var cursor = { x: width / 2, y: height / 2 }; // 수정된 좌표
     var particles = [];
-    var lastParticleTime = 0; // 마지막 입자 생성 시간
-    var particleInterval = 100; // 입자 생성 간격 (ms)
+    var lastParticleTime = 0;
+    var particleInterval = 100;
+
+    // 기준 위치 (100%에서의 오른쪽 위치)
+    var baseOffsetX = 300; // 100% 확대 시 300px 위치
+    var scale = 1; // 현재 확대 비율
 
     function init() {
-        createInitialParticle(); // 페이지 로드 시 초기 입자 생성
+        createInitialParticle();
         bindEvents();
         loop();
     }
 
-    // 페이지 로드 시 초기 입자 생성
     function createInitialParticle() {
-        addParticle(cursor.x, cursor.y, possibleColors[Math.floor(Math.random() * possibleColors.length)]);
+        addParticle(getFixedX(window.innerWidth / 2), window.innerHeight / 2, possibleColors[Math.floor(Math.random() * possibleColors.length)]);
     }
 
-    // Bind events that are needed
     function bindEvents() {
         document.addEventListener('mousemove', onMouseMove);
         document.addEventListener('touchmove', onTouchMove);
         document.addEventListener('touchstart', onTouchMove);
-
         window.addEventListener('resize', onWindowResize);
     }
 
-    function onWindowResize(e) {
-        width = window.innerWidth;
-        height = window.innerHeight;
+    function onWindowResize() {
+        createInitialParticle(); // 리사이즈 시 입자 재생성
     }
 
     function onTouchMove(e) {
         if (e.touches.length > 0) {
             for (var i = 0; i < e.touches.length; i++) {
                 addParticle(
-                    e.touches[i].clientX,
+                    getFixedX(e.touches[i].clientX),
                     e.touches[i].clientY,
                     possibleColors[Math.floor(Math.random() * possibleColors.length)]
                 );
@@ -54,17 +44,18 @@
     function onMouseMove(e) {
         var currentTime = Date.now();
         if (currentTime - lastParticleTime > particleInterval) {
-            cursor.x = e.clientX;
-            cursor.y = e.clientY;
-
             addParticle(
-                cursor.x,
-                cursor.y,
+                getFixedX(e.clientX),
+                e.clientY,
                 possibleColors[Math.floor(Math.random() * possibleColors.length)]
             );
-
-            lastParticleTime = currentTime; // 마지막 입자 생성 시간 업데이트
+            lastParticleTime = currentTime;
         }
+    }
+
+    // 현재 확대 비율에 따른 고정된 X 위치 계산
+    function getFixedX(x) {
+        return x + (baseOffsetX * scale); // 고정된 오프셋 계산
     }
 
     function addParticle(x, y, color) {
@@ -74,12 +65,10 @@
     }
 
     function updateParticles() {
-        // Updated
         for (var i = 0; i < particles.length; i++) {
             particles[i].update();
         }
 
-        // Remove dead particles
         for (var i = particles.length - 1; i >= 0; i--) {
             if (particles[i].lifeSpan < 0) {
                 particles[i].die();
@@ -93,30 +82,25 @@
         updateParticles();
     }
 
-    /**
-     * Particles
-     */
-
     function Particle() {
         this.character = "*";
-        this.lifeSpan = 300; // 지속 시간 (ms)
+        this.lifeSpan = 300;
         this.initialStyles = {
             "position": "absolute",
             "display": "block",
             "pointerEvents": "none",
             "z-index": "10000000",
-            "fontSize": "24px", // 크기 조정
+            "fontSize": "24px",
             "will-change": "transform"
         };
 
-        // Init, and set properties
         this.init = function(x, y, color) {
             this.velocity = {
                 x: (Math.random() < 0.5 ? -1 : 1) * (Math.random() / 2),
                 y: 1
             };
 
-            this.position = { x: x - 298, y: y + 12 }; // 200px 왼쪽으로 이동
+            this.position = { x: x - 640, y: y };
             this.initialStyles.color = color;
 
             this.element = document.createElement('span');
@@ -133,23 +117,24 @@
             this.lifeSpan--;
 
             this.element.style.transform = "translate3d(" + this.position.x + "px," + this.position.y + "px, 0) scale(" + (this.lifeSpan / 300) + ")";
-        }
+        };
 
         this.die = function() {
             this.element.parentNode.removeChild(this.element);
-        }
+        };
     }
 
-    /**
-     * Utils
-     */
-
-    // Applies css `properties` to an element.
     function applyProperties(target, properties) {
         for (var key in properties) {
             target.style[key] = properties[key];
         }
     }
 
+    // 확대 비율 계산
+    function updateScale() {
+        scale = window.devicePixelRatio; // 브라우저의 확대 비율을 가져옴
+    }
+
+    updateScale(); // 초기화 시 확대 비율 설정
     init();
 })();
