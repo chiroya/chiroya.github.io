@@ -1,139 +1,149 @@
+/*!
+ * Fairy Dust Cursor.js
+ * - 90's cursors collection
+ * -- https://github.com/tholman/90s-cursor-effects
+ * -- https://codepen.io/tholman/full/jWmZxZ/
+ */
 
-var colour="random"; 
-var sparkles=100;
+(function fairyDustCursor() {
+    var possibleColors = ["#D61C59", "#E7D84B", "#1B8798"];
+    var width = window.innerWidth;
+    var height = window.innerHeight;
+    var cursor = { x: width / 2, y: height / 2 }; // 수정된 좌표
+    var particles = [];
+    var lastParticleTime = 0; // 마지막 입자 생성 시간
+    var particleInterval = 100; // 입자 생성 간격 (ms)
 
-var x=ox=400;
-var y=oy=300;
-var swide=800;
-var shigh=600;
-var sleft=sdown=0;
-var tiny=[], star=[], starv=[], starx=[], stary=[], tinyx=[], tinyy=[], tinyv=[];
-
-window.onload=function() { 
-    if (document.getElementById) {
-        for (var i=0; i<sparkles; i++) {
-            tiny[i]=createDiv(5, 5);  // 크기를 좀 더 크게
-            tiny[i].style.visibility="hidden";
-            tiny[i].style.zIndex="999";
-            document.body.appendChild(tiny[i]);
-
-            star[i]=createDiv(10, 10);  // 십자가의 기본 크기 설정
-            star[i].style.visibility="hidden";
-            star[i].style.zIndex="999";
-
-            // 세로 줄 (2px 너비, 10px 높이)
-            var verticalLine = createDiv(5, 5);
-            verticalLine.style.position = 'absolute';
-            verticalLine.style.left = '0px'; // 가로 중앙으로 위치 조정
-
-            // 가로 줄 (10px 너비, 2px 높이)
-            var horizontalLine = createDiv(5, 5);
-            horizontalLine.style.position = 'absolute';
-            horizontalLine.style.top = '0px';  // 세로 중앙으로 위치 조정
-
-            // star에 세로 줄과 가로 줄 추가
-            star[i].appendChild(verticalLine);
-            star[i].appendChild(horizontalLine);
-
-            document.body.appendChild(star[i]);
-            starv[i]=tinyv[i]=0;
-        }
-        set_width();
-        sparkle();
+    function init() {
+        bindEvents();
+        loop();
     }
-}
 
-function sparkle() {
-    if (Math.abs(x-ox)>1 || Math.abs(y-oy)>1) {
-        ox=x;
-        oy=y;
-        for (var i=0; i<sparkles; i++) {
-            if (!starv[i]) {
-                star[i].style.left=(starx[i]=x)+"px";
-                star[i].style.top=(stary[i]=y+1)+"px";
-                star[i].style.clip="rect(0px, 10px, 10px, 0px)";  // 크기에 맞게 변경
-                star[i].childNodes[0].style.backgroundColor = 
-                    star[i].childNodes[1].style.backgroundColor = 
-                    (colour=="random")?newColour():colour;
-                star[i].style.visibility="visible";
-                starv[i]=50;
-                break;
+    // Bind events that are needed
+    function bindEvents() {
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('touchmove', onTouchMove);
+        document.addEventListener('touchstart', onTouchMove);
+
+        window.addEventListener('resize', onWindowResize);
+    }
+
+    function onWindowResize(e) {
+        width = window.innerWidth;
+        height = window.innerHeight;
+    }
+
+    function onTouchMove(e) {
+        if (e.touches.length > 0) {
+            for (var i = 0; i < e.touches.length; i++) {
+                addParticle(
+                    e.touches[i].clientX,
+                    e.touches[i].clientY,
+                    possibleColors[Math.floor(Math.random() * possibleColors.length)]
+                );
             }
         }
     }
-    for (var i=0; i<sparkles; i++) {
-        if (starv[i]) update_star(i);
-        if (tinyv[i]) update_tiny(i);
-    }
-    setTimeout(sparkle, 50);
-}
 
-function update_star(i) {
-    if (--starv[i]==25) star[i].style.clip="rect(1px, 9px, 9px, 1px)";  // 크기에 맞게 변경
-    if (starv[i]) {
-        stary[i]+=1+Math.random()*3;
-        starx[i]+=(i%5-2)/5;
-        if (stary[i]<shigh+sdown) {
-            star[i].style.top=stary[i]+"px";
-            star[i].style.left=starx[i]+"px";
-        } else {
-            star[i].style.visibility="hidden";
-            starv[i]=0;
+    function onMouseMove(e) {
+        var currentTime = Date.now();
+        if (currentTime - lastParticleTime > particleInterval) {
+            cursor.x = e.clientX;
+            cursor.y = e.clientY;
+
+            addParticle(
+                cursor.x,
+                cursor.y,
+                possibleColors[Math.floor(Math.random() * possibleColors.length)]
+            );
+
+            lastParticleTime = currentTime; // 마지막 입자 생성 시간 업데이트
         }
-    } else {
-        tinyv[i]=50;
-        tiny[i].style.top=(tinyy[i]=stary[i])+"px";
-        tiny[i].style.left=(tinyx[i]=starx[i])+"px";
-        tiny[i].style.visibility="visible";
-        star[i].style.visibility="hidden";
     }
-}
 
-function update_tiny(i) {
-    if (--tinyv[i]==25) {
-        tiny[i].style.width="2px";  // 크기를 키운 후 최소 크기
-        tiny[i].style.height="2px"; // 크기를 키운 후 최소 크기
+    function addParticle(x, y, color) {
+        var particle = new Particle();
+        particle.init(x, y, color);
+        particles.push(particle);
     }
-    if (tinyv[i]) {
-        tinyy[i]+=1+Math.random()*3;
-        tinyx[i]+=(i%5-2)/5;
-        if (tinyy[i]<shigh+sdown) {
-            tiny[i].style.top=tinyy[i]+"px";
-            tiny[i].style.left=tinyx[i]+"px";
-        } else {
-            tiny[i].style.visibility="hidden";
-            tinyv[i]=0;
+
+    function updateParticles() {
+        // Updated
+        for (var i = 0; i < particles.length; i++) {
+            particles[i].update();
         }
-    } else {
-        tiny[i].style.visibility="hidden";
+
+        // Remove dead particles
+        for (var i = particles.length - 1; i >= 0; i--) {
+            if (particles[i].lifeSpan < 0) {
+                particles[i].die();
+                particles.splice(i, 1);
+            }
+        }
     }
-}
 
-document.onmousemove=function(e) {
-    y=e.pageY + 80;
-    x=e.pageX + 55;
-}
+    function loop() {
+        requestAnimationFrame(loop);
+        updateParticles();
+    }
 
-window.onscroll=set_scroll;
-function set_scroll() {
-    sdown=window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-    sleft=window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0;
-}
+    /**
+     * Particles
+     */
 
-window.onresize=set_width;
-function set_width() {
-    swide=window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-    shigh=window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-}
+    function Particle() {
+        this.character = "*";
+        this.lifeSpan = 300; // 지속 시간 (ms)
+        this.initialStyles = {
+            "position": "absolute",
+            "display": "block",
+            "pointerEvents": "none",
+            "z-index": "10000000",
+            "fontSize": "24px", // 크기 조정
+            "will-change": "transform"
+        };
 
-function createDiv(height, width) {
-    var div=document.createElement("div");
-    div.style.position="absolute";
-    div.style.height=height+"px";
-    div.style.width=width+"px";
-    return div;
-}
+        // Init, and set properties
+        this.init = function(x, y, color) {
+            this.velocity = {
+                x: (Math.random() < 0.5 ? -1 : 1) * (Math.random() / 2),
+                y: 1
+            };
 
-function newColour() {
-    return "rgb("+(Math.floor(Math.random()*256))+","+(Math.floor(Math.random()*256))+","+(Math.floor(Math.random()*256))+")";
-}
+            this.position = { x: x - 298, y: y + 12 }; // 200px 왼쪽으로 이동
+            this.initialStyles.color = color;
+
+            this.element = document.createElement('span');
+            this.element.innerHTML = this.character;
+            applyProperties(this.element, this.initialStyles);
+            this.update();
+
+            document.querySelector('.container').appendChild(this.element);
+        };
+
+        this.update = function() {
+            this.position.x += this.velocity.x;
+            this.position.y += this.velocity.y;
+            this.lifeSpan--;
+
+            this.element.style.transform = "translate3d(" + this.position.x + "px," + this.position.y + "px, 0) scale(" + (this.lifeSpan / 300) + ")";
+        }
+
+        this.die = function() {
+            this.element.parentNode.removeChild(this.element);
+        }
+    }
+
+    /**
+     * Utils
+     */
+
+    // Applies css `properties` to an element.
+    function applyProperties(target, properties) {
+        for (var key in properties) {
+            target.style[key] = properties[key];
+        }
+    }
+
+    init();
+})();
