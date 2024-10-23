@@ -15,8 +15,14 @@
     var particleInterval = 100; // 입자 생성 간격 (ms)
 
     function init() {
+        createInitialParticle(); // 페이지 로드 시 초기 입자 생성
         bindEvents();
         loop();
+    }
+
+    // 페이지 로드 시 초기 입자 생성
+    function createInitialParticle() {
+        addParticle(cursor.x, cursor.y, possibleColors[Math.floor(Math.random() * possibleColors.length)]);
     }
 
     // Bind events that are needed
