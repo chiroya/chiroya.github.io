@@ -4,7 +4,7 @@ on:
   schedule:
     # 특정 시간대마다 실행
     # cron 표현식 - https://crontab.guru/ 참고
-    - cron: "15 * * * *"  # 매 시간 15분에 실행
+    - cron: "30 * * * *"  # 매 시간 30분에 실행
     
   push:
     branches: ["main"]  # 'main' 브랜치에 push 할 때도 실행
@@ -14,23 +14,23 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    # GitHub 저장소 체크아웃
     - uses: actions/checkout@v4
-      with:
-        token: ${{ secrets.GA_img_Scraper_key }}  # PAT 토큰으로 인증
-        
-    # Python 환경 설정
+      with: 
+        TOKEN: ${{ secrets.GA_IMG_SCRAPER_KEY }}
+
+    
+    # 파이썬 설치
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v3
       with:
-        python-version: '3.x' ${{ matrix.python-version }}
-        
-    # pip 업그레이드
+        python-version: ${{ matrix.python-version }}
+    
+    # 파이썬 업그레이드
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
 
-    # 필요한 라이브러리 설치
+    # 라이브러리 설치
     - name: Install Libraries
       run: | 
         pip install requests beautifulsoup4 asyncio aiohttp lxml
@@ -42,10 +42,11 @@ jobs:
 
     # 커밋 & 푸시
     - name: commit & push
+      env:
+        TOKEN: ${{ secrets.GA_IMG_SCRAPER_KEY }}
       run: |
         git config --global user.email "chiroyawn@gmail.com"
         git config --global user.name "chiroya"
         git add module/crawler/images.json
         git commit -m "이미지 크롤링 완료" || echo "No changes to commit"
-        git remote set-url origin https://${{ secrets.GA_img_Scraper_key }}@github.com/chiroya/chiroya.github.io.git
         git push origin main
