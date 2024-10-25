@@ -36,7 +36,7 @@ jobs:
     # 파이썬 파일 실행  
     - name: run my file
       run: |
-        python3 module/crawler/crawl&saver.py
+        python3 module/crawler/crawl_saver.py
 
     # 커밋 & 푸시
     - name: commit & push
