@@ -30,3 +30,13 @@
     border-radius: 8px; /* 이미지 모서리 둥글게 */
 }
 
+
+
+/* 이미지 우클릭 방지 */
+.mySwiper img, .img-responsive, .mascot {
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    pointer-events: none;
+}
