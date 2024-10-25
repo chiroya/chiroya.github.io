@@ -41,7 +41,7 @@ jobs:
     # 커밋 & 푸시
     - name: commit & push
       env:
-        GITHUB_TOKEN: ${{ GA_IMG_SCRAPER_KEY }}
+        GA_IMG_SCRAPER_KEY: ${{ secrets.GA_IMG_SCRAPER_KEY }}
       run: |
         git config --global user.email "chiroyawn@gmail.com"
         git config --global user.name "chiroya"
