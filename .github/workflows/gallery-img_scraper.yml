@@ -38,13 +38,13 @@ jobs:
       run: |
         python3 module/crawler/crawl_saver.py
 
-    # # 커밋 & 푸시
-    # - name: commit & push
-    #   env:
-    #     TOKEN: ${{ secrets.GA_IMG_SCRAPER_KEY }}
-    #   run: |
-    #     git config --global user.email "chiroyawn@gmail.com"
-    #     git config --global user.name "chiroya"
-    #     git add module/crawler/images.json
-    #     git commit -m "Crawing Images Complete" || echo "No changes to commit"
-    #     git push origin main
+    # 커밋 & 푸시
+    - name: commit & push
+      env:
+        TOKEN: ${{ secrets.GA_IMG_SCRAPER_KEY }}
+      run: |
+        git config --global user.email "chiroyawn@gmail.com"
+        git config --global user.name "chiroya"
+        git add module/crawler/images.json
+        git commit -m "Crawing Images Complete" || echo "No changes to commit"
+        git push origin main
