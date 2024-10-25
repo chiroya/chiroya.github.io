@@ -8,6 +8,7 @@
     z-index: 9998; /* .pl-wrapper보다 낮은 z-index */
     transition: opacity 1s ease-in-out;
     opacity: 1;
+    cursor: none;
 }
 
 
