@@ -1,14 +1,7 @@
-import requests
-from bs4 import BeautifulSoup
 import asyncio
 import json
 import aiohttp
-import schedule
-import time
-
-################################
-# 이미지 크롤링 - 비동기 처리
-
+from bs4 import BeautifulSoup
 
 async def fetch(url):
     async with aiohttp.ClientSession() as session:
@@ -23,17 +16,21 @@ async def get_image_list():
     
     soup = BeautifulSoup(html_content, "lxml")
     script_tag = soup.find('script', {'id': '__NEXT_DATA__'})
+    
+    if not script_tag:  # script_tag가 None인지 확인
+        print("No script tag found.")
+        return []
+    
     json_data = json.loads(script_tag.contents[0])
 
     img_web_urls = [attachment.get('imgWebUrl') for d in json_data['props']['pageProps']['qrDetail']['sessions'] if 'attachments' in d for attachment in d.get('attachments', [])]
 
-    # 결과 출력
-    img_urls = []
-    for img_web_url in img_web_urls:
-        img_urls.append(img_web_url)
+    # 이미지 링크를 리스트 화
+    img_list = list(set(img_web_urls) - {None})[0:]  # None 값 제거
 
-    # 첫 번째 이미지 URL을 제외한 고유한 이미지 URL을 출력
-    img_list = list(set(img_urls))[1:]
+    # images.json 파일로 저장
+    with open('module/crawler/images.json', 'w', encoding='utf-8') as f:
+        json.dump(img_list, f, ensure_ascii=False, indent=4)
 
     return img_list
 
@@ -41,15 +38,7 @@ async def main():
     img_list = await get_image_list()
     print(img_list)
 
-def job():
+if __name__ == "__main__":
     asyncio.run(main())
 
 
-
-# 매주 월요일 오전 04시에 작동
-schedule.every().monday.at("04:00").do(job)
-
-if __name__ == "__main__":
-    while True:
-        schedule.run_pending()
-        time.sleep(1)

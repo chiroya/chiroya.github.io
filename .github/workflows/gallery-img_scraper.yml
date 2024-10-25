@@ -9,7 +9,7 @@ on:
     # 특정 시간대마다 실행
     # cron 표현식 - https://crontab.guru/ 참고
     schedule : 
-        - cron : "0 12 * * *"
+        - cron : "5 * * * *"
 
   # push:
   #   branches: [ "main" ]
@@ -39,22 +39,18 @@ jobs:
     # 파이썬 파일 실행  
     - name: run my file
       run: |
-        python3 module/crawler/logic_async.py
+        python3 module/crawler/crawl&saver.py
 
-    # # 커밋
-    # - name: commits
-    #   run: |
-    #      git config --global user.email "chiroyawn@gmail.com"
-    #      git config --global user.name "chiroya"
-    #      git add images.json
-    #      git commit -m "이미지 크롤링 완료"
+    # 커밋 & 푸시
+    - name: commit & push
+      run: |
+        git config --global user.email "chiroyawn@gmail.com"
+        git config --global user.name "chiroya"
+        git add images.json
+        git commit -m "이미지 크롤링 완료"
+        git push
 
-    # # 푸시
-    # - name : push
-    #   uses : ad-m/github-push-action@master
-    #   with : 
-    #       branch : "main"
-    #       github_token : $
-      
 
-         
+
+
+
