@@ -6,8 +6,6 @@ on:
     # cron 표현식 - https://crontab.guru/ 참고
     - cron: "30 * * * *"  # 매 시간 30분에 실행
     
-  push:
-    branches: ["main"]  # 'main' 브랜치에 push 할 때도 실행
 
 jobs:
   build:
@@ -40,13 +38,13 @@ jobs:
       run: |
         python3 module/crawler/crawl_saver.py
 
-    # 커밋 & 푸시
-    - name: commit & push
-      env:
-        TOKEN: ${{ secrets.GA_IMG_SCRAPER_KEY }}
-      run: |
-        git config --global user.email "chiroyawn@gmail.com"
-        git config --global user.name "chiroya"
-        git add module/crawler/images.json
-        git commit -m "Crawing Images Complete" || echo "No changes to commit"
-        git push origin main
+    # # 커밋 & 푸시
+    # - name: commit & push
+    #   env:
+    #     TOKEN: ${{ secrets.GA_IMG_SCRAPER_KEY }}
+    #   run: |
+    #     git config --global user.email "chiroyawn@gmail.com"
+    #     git config --global user.name "chiroya"
+    #     git add module/crawler/images.json
+    #     git commit -m "Crawing Images Complete" || echo "No changes to commit"
+    #     git push origin main
