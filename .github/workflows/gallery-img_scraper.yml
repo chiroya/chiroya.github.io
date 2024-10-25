@@ -48,5 +48,5 @@ jobs:
         git config --global user.email "chiroyawn@gmail.com"
         git config --global user.name "chiroya"
         git add module/crawler/images.json
-        git commit -m "이미지 크롤링 완료" || echo "No changes to commit"
+        git commit -m "Crawing Images Complete" || echo "No changes to commit"
         git push origin main
