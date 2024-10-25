@@ -4,7 +4,7 @@ on:
   schedule:
     # 특정 시간대마다 실행
     # cron 표현식 - https://crontab.guru/ 참고
-    - cron: "5 * * * *"  # 매 시간 5분에 실행
+    - cron: "15 * * * *"  # 매 시간 5분에 실행
     
   push:
     branches: ["main"]  # 'main' 브랜치에 push 할 때도 실행
