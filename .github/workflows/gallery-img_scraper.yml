@@ -43,12 +43,15 @@ jobs:
 
     # 커밋 & 푸시
     - name: commit & push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         git config --global user.email "chiroyawn@gmail.com"
         git config --global user.name "chiroya"
-        git add images.json
+        git add module/crawler/images.json
         git commit -m "이미지 크롤링 완료"
         git push
+
 
 
 
