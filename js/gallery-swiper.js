@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const images = [];
 
     // 파이썬 웹크롤러로 받아와 저장한 json 파일을 불러와서 적용
-    fetch('path/to/images.json')
+    fetch('module/crawler/images.json')
     .then(response => response.json())
     .then(data => {
         images.push(...data); // 불러온 이미지를 images 배열에 추가

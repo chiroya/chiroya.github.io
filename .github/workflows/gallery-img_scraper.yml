@@ -1,24 +1,21 @@
 # This workflow will install Python dependencies, run tests and lint with a variety of Python versions
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
 
-name: gallery-img_scraper
 
-# on : 어떤 조건일 때 파일을 실행시킬 지
+name: gallery-img_scraper
 
 on:
     # 특정 시간대마다 실행
     # cron 표현식 - https://crontab.guru/ 참고
-    schedule : 
-        - cron : "5 * * * *"
-
-  # push:
-  #   branches: [ "main" ]
-  # pull_request:
-  #   branches: [ "main" ]
+  schedule:
+    - cron: "5 * * * *"
+    
+    # 'main' 브랜치에 push 할 때도 실행
+  push:
+    branches: ["main"]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     
     steps:
@@ -51,7 +48,6 @@ jobs:
         git add module/crawler/images.json
         git commit -m "이미지 크롤링 완료"
         git push
-
 
 
 
