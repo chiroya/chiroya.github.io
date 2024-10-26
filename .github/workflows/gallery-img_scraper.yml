@@ -4,7 +4,7 @@ on:
   schedule:
     # 특정 시간대마다 실행
     # cron 표현식 - https://crontab.guru/ 참고
-    - cron: "0 0 * * 1"  # 월요일 00시 00분에 갱신
+    - cron: "0 0 * * 1"  # 매주 월요일 00시 00분에 갱신
 
 
 
