@@ -470,5 +470,45 @@ img {
 
 
 
+/* 후원 버튼 및 footer */
+
+.bmc-btn {
+    font-size: 24px !important;
+    padding: 0px 12px !important;
+    margin-top: 5px;
+}
 
 
+.bmc-btn a, a.active, a:active, a:focus, a:hover {
+    color: #ffffff;
+}
+
+.bmc-btn-text {
+    display: inline-block;
+    text-align: center;
+    justify-content: center;
+    margin-left: -14px !important;
+    line-height: 0;
+    width: auto;
+}
+
+#donation {
+    display: contents;
+    text-align: center;
+    justify-content: center;
+    object-fit: contain;
+
+}
+
+#donation:hover,
+#donation:active {
+    background-color: #ffffff;
+    transition: background-color 0.3s ease;
+}
+
+
+.footer-col p {
+    text-align: center;
+    justify-content: center;
+    margin-top: 50px;
+}
