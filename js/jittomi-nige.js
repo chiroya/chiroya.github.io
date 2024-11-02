@@ -23,6 +23,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // 모바일 터치 이벤트 처리
+  let touchTimer;
+  backToTopButton.addEventListener('touchstart', () => {
+    clearTimeout(touchTimer);
+  });
+
+  backToTopButton.addEventListener('touchend', () => {
+    // 터치 종료 후 약간의 지연 시간을 두고 상태 초기화
+    touchTimer = setTimeout(() => {
+      backToTopButton.classList.remove('touch-active');
+    }, 300);
+  });
+
   // 클릭 시 맨 위로 스크롤
   backToTopButton.addEventListener('click', () => {
     lock = true;
@@ -50,9 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
       lock = false;
       isShow = false;
-      backToTopButton.classList.remove('leaved', 'ending');
+      backToTopButton.classList.remove('leaved', 'ending', 'touch-active');
     }, 2000);
   });
 });
-
-
