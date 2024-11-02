@@ -23,30 +23,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 터치 이벤트 처리 개선
   let touchStartTime;
+  let touchEffectTimeout;
   
   backToTopButton.addEventListener('touchstart', (e) => {
     touchStartTime = Date.now();
     backToTopButton.classList.add('touch-active');
+    // 이전 타이머가 있다면 제거
+    if (touchEffectTimeout) {
+      clearTimeout(touchEffectTimeout);
+    }
   });
 
   backToTopButton.addEventListener('touchend', (e) => {
-    // 터치 종료 즉시 효과 제거
-    backToTopButton.classList.remove('touch-active');
-    backToTopButton.classList.add('touch-end');
-    
-    // 짧은 시간 후 touch-end 클래스도 제거
-    requestAnimationFrame(() => {
-      backToTopButton.classList.remove('touch-end');
-    });
-
-    // 터치 시간이 짧은 경우에만 클릭 이벤트 실행
     const touchDuration = Date.now() - touchStartTime;
+    
+    // 터치 효과를 더 오래 유지
+    touchEffectTimeout = setTimeout(() => {
+      backToTopButton.classList.remove('touch-active');
+      backToTopButton.classList.add('touch-end');
+      
+      // touch-end 클래스도 일정 시간 후 제거
+      setTimeout(() => {
+        backToTopButton.classList.remove('touch-end');
+      }, 500); // touch-end 효과 지속 시간 (0.5초)
+    }, 800); // 터치 효과 지속 시간 (0.8초)
+
+    // 짧은 터치인 경우에만 클릭 이벤트 실행
     if (touchDuration < 300) {
       handleClick();
     }
   });
 
-  // 클릭 핸들러를 별도 함수로 분리
+  // 클릭 핸들러
   const handleClick = () => {
     if (lock) return;
     
@@ -75,6 +83,9 @@ document.addEventListener('DOMContentLoaded', () => {
       lock = false;
       isShow = false;
       backToTopButton.classList.remove('leaved', 'ending', 'touch-active', 'touch-end');
+      if (touchEffectTimeout) {
+        clearTimeout(touchEffectTimeout);
+      }
     }, 2000);
   };
 
