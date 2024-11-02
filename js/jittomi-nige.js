@@ -7,6 +7,11 @@ document.addEventListener('DOMContentLoaded', () => {
   let lock = false;
   const backToTopButton = document.querySelector('.back-to-top');
 
+  // 컨텍스트 메뉴 방지
+  backToTopButton.addEventListener('contextmenu', (e) => {
+    e.preventDefault();
+  });
+
   // 스크롤 이벤트
   window.addEventListener('scroll', () => {
     if (lock) return;
@@ -21,14 +26,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 터치 이벤트 처리 개선
+  // 기존 터치 이벤트 처리
   let touchStartTime;
   let touchEffectTimeout;
   
   backToTopButton.addEventListener('touchstart', (e) => {
     touchStartTime = Date.now();
     backToTopButton.classList.add('touch-active');
-    // 이전 타이머가 있다면 제거
     if (touchEffectTimeout) {
       clearTimeout(touchEffectTimeout);
     }
@@ -37,18 +41,15 @@ document.addEventListener('DOMContentLoaded', () => {
   backToTopButton.addEventListener('touchend', (e) => {
     const touchDuration = Date.now() - touchStartTime;
     
-    // 터치 효과를 더 오래 유지
     touchEffectTimeout = setTimeout(() => {
       backToTopButton.classList.remove('touch-active');
       backToTopButton.classList.add('touch-end');
       
-      // touch-end 클래스도 일정 시간 후 제거
       setTimeout(() => {
         backToTopButton.classList.remove('touch-end');
-      }, 500); // touch-end 효과 지속 시간 (0.5초)
-    }, 800); // 터치 효과 지속 시간 (0.8초)
+      }, 500);
+    }, 800);
 
-    // 짧은 터치인 경우에만 클릭 이벤트 실행
     if (touchDuration < 300) {
       handleClick();
     }

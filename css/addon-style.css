@@ -61,6 +61,10 @@ a {
   opacity: 0.6;
   transition: opacity 0.3s, right 0.8s;
   -webkit-tap-highlight-color: transparent;
+  /* 컨텍스트 메뉴 및 선택 방지 */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 /* PC에서만 hover 효과 적용 */
