@@ -48,7 +48,6 @@ a {
 }
 
 
-
 .back-to-top {
   position: fixed;
   z-index: 2;
@@ -61,13 +60,11 @@ a {
   opacity: 0.6;
   transition: opacity 0.3s, right 0.8s;
   -webkit-tap-highlight-color: transparent;
-  /* 컨텍스트 메뉴 및 선택 방지 */
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   user-select: none;
 }
 
-/* PC에서만 hover 효과 적용 */
 @media (hover: hover) and (pointer: fine) {
   .back-to-top:hover {
     background-position: 0 -150px;
@@ -75,25 +72,24 @@ a {
   }
 }
 
-/* 모바일 터치 효과 - 더 긴 지속 시간으로 설정 */
 .back-to-top:active,
 .back-to-top.touch-active {
   background-position: 0 -150px;
   opacity: 1;
 }
 
-/* 터치 종료 시 천천히 원래 상태로 복귀 */
+/* 터치 종료 시 부드러운 fade out 효과 적용 */
 .back-to-top.touch-end {
   background-position: 0 0;
   opacity: 0.6;
-  transition: background-position 0.5s ease-out, opacity 0.5s ease-out;
+  transition: all 0.4s ease; /* ease-out 대신 ease를 사용하여 더 부드러운 효과 */
 }
 
-/* 나머지 스타일은 동일 */
 .back-to-top.load {
   right: 0;
 }
 
+/* 나머지 스타일은 동일하게 유지 */
 .back-to-top.ani-leave {
   background-position: 0 -150px;
   animation: ani-leave 390ms ease-in-out;
@@ -138,7 +134,6 @@ a {
     transform: translateX(108px);
   }
 }
-
 
 
 

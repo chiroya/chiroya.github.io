@@ -41,16 +41,16 @@ document.addEventListener('DOMContentLoaded', () => {
   backToTopButton.addEventListener('touchend', (e) => {
     const touchDuration = Date.now() - touchStartTime;
     
-    if (touchDuration >= 300) {
-      // 길게 눌렀다 뗀 경우 fade out 효과 적용
+    touchEffectTimeout = setTimeout(() => {
       backToTopButton.classList.remove('touch-active');
-      backToTopButton.classList.add('touch-fade-out');
+      backToTopButton.classList.add('touch-return');
       
       setTimeout(() => {
-        backToTopButton.classList.remove('touch-fade-out');
-      }, 400); // fade out 지속 시간
-    } else {
-      // 짧게 눌렀다 뗀 경우 기존의 클릭 동작 실행
+        backToTopButton.classList.remove('touch-return');
+      }, 300);
+    }, 800);
+
+    if (touchDuration < 300) {
       handleClick();
     }
   });
@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
       lock = false;
       isShow = false;
-      backToTopButton.classList.remove('leaved', 'ending', 'touch-active', 'touch-fade-out');
+      backToTopButton.classList.remove('leaved', 'ending', 'touch-active', 'touch-return');
       if (touchEffectTimeout) {
         clearTimeout(touchEffectTimeout);
       }
