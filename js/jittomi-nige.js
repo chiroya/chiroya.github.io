@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // 스크롤 이벤트
   window.addEventListener('scroll', () => {
     if (lock) return;
-    if (window.scrollY >= 400) {
+    if (window.scrollY >= 300) {
       if (!isShow) {
         backToTopButton.classList.add('load');
         isShow = true;
