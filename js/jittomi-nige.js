@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // 코드 블록에 하이라이팅 적용
   document.querySelectorAll('pre').forEach((block) => {
     hljs.highlightBlock(block);
   });
@@ -11,7 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // 스크롤 이벤트
   window.addEventListener('scroll', () => {
     if (lock) return;
-
     if (window.scrollY >= 400) {
       if (!isShow) {
         backToTopButton.classList.add('load');
@@ -23,25 +21,38 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 모바일 터치 이벤트 처리
-  let touchTimer;
-  backToTopButton.addEventListener('touchstart', () => {
-    clearTimeout(touchTimer);
+  // 터치 이벤트 처리 개선
+  let touchStartTime;
+  
+  backToTopButton.addEventListener('touchstart', (e) => {
+    touchStartTime = Date.now();
+    backToTopButton.classList.add('touch-active');
   });
 
-  backToTopButton.addEventListener('touchend', () => {
-    // 터치 종료 후 약간의 지연 시간을 두고 상태 초기화
-    touchTimer = setTimeout(() => {
-      backToTopButton.classList.remove('touch-active');
-    }, 300);
+  backToTopButton.addEventListener('touchend', (e) => {
+    // 터치 종료 즉시 효과 제거
+    backToTopButton.classList.remove('touch-active');
+    backToTopButton.classList.add('touch-end');
+    
+    // 짧은 시간 후 touch-end 클래스도 제거
+    requestAnimationFrame(() => {
+      backToTopButton.classList.remove('touch-end');
+    });
+
+    // 터치 시간이 짧은 경우에만 클릭 이벤트 실행
+    const touchDuration = Date.now() - touchStartTime;
+    if (touchDuration < 300) {
+      handleClick();
+    }
   });
 
-  // 클릭 시 맨 위로 스크롤
-  backToTopButton.addEventListener('click', () => {
+  // 클릭 핸들러를 별도 함수로 분리
+  const handleClick = () => {
+    if (lock) return;
+    
     lock = true;
     backToTopButton.classList.add('ani-leave');
 
-    // 부드러운 스크롤
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
@@ -63,7 +74,12 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
       lock = false;
       isShow = false;
-      backToTopButton.classList.remove('leaved', 'ending', 'touch-active');
+      backToTopButton.classList.remove('leaved', 'ending', 'touch-active', 'touch-end');
     }, 2000);
-  });
+  };
+
+  // PC 환경에서는 클릭 이벤트 사용
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    backToTopButton.addEventListener('click', handleClick);
+  }
 });
