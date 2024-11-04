@@ -492,7 +492,7 @@ img {
     width: auto;
 }
 
-#donation {
+#donate {
     display: contents;
     text-align: center;
     justify-content: center;
@@ -500,8 +500,8 @@ img {
 
 }
 
-#donation:hover,
-#donation:active {
+#donate:hover,
+#donate:active {
     background-color: #ffffff;
     transition: background-color 0.3s ease;
 }

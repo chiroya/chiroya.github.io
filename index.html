@@ -20,6 +20,7 @@
 
     <title>Chiroya's Atelier</title>
 
+
     <!-- Custom(add-on) CSS -->
     <link rel="stylesheet" href="/css/addon-style.css">
 
@@ -106,7 +107,7 @@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand" href="#page-top">Chiroya's Atelier</a>
+                <a class="navbar-brand" id="pg-top" href="#page-top">Chiroya's Atelier</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -116,7 +117,7 @@
                         <a href="#page-top"></a>
                     </li>
                     <li class="page-scroll">
-                        <a href="#portfolio">Gallery</a>
+                        <a href="#portfolio" id="glr">Gallery</a>
                     </li>
                     <li class="page-scroll">
                         <a href="#about">About</a>
@@ -193,23 +194,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <!-- About Section -->
     <section class="success" id="about">
         <div class="container">
@@ -228,25 +212,12 @@
                 </div>
                 <div class="col-lg-8 col-lg-offset-2 text-center">
                     <a href="#" class="btn btn-lg btn-outline">
-                        <i class="fa fa-download"></i> Let's Chat !
+                        <i class="fa fa-download" id="chat-page"></i> Let's Chat !
                     </a>
                 </div>
             </div>
         </div>
     </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -294,8 +265,8 @@
                         </div>
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label for="phone">Phone Number</label>
-                                <input type="tel" class="form-control" placeholder="Phone Number" id="phone" required data-validation-required-message="Please enter your phone number.">
+                                <label for="discord">Discord ID</label>
+                                <input type="discord" class="form-control" placeholder="Discord ID" id="discord" required data-validation-required-message="Please enter your Discord ID.">
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
@@ -310,7 +281,7 @@
                         <div id="success"></div>
                         <div class="row">
                             <div class="form-group col-xs-12">
-                                <button type="submit" class="btn btn-success btn-lg">Send</button>
+                                <button type="submit" id="form-send" class="btn btn-success btn-lg">Send</button>
                             </div>
                         </div>
                     </form>
@@ -327,13 +298,6 @@
 
 
 
-
-
-
-
-
-
-
     <!-- Footer -->
     <footer class="text-center">
         <div class="footer-above">
@@ -341,7 +305,7 @@
                 <div class="row">
                     <div class="footer-col col-md-4">
                         <h3>Donate</h3>
-                        <button id="donation">
+                        <button id="donate">
                             <script type="text/javascript" 
                             src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" 
                             data-name="bmc-button" 
@@ -357,13 +321,13 @@
                         <h3>Around the Web</h3>
                         <ul class="list-inline">
                             <li>
-                                <a href="https://github.com/chiroya" class="btn-social btn-outline"><span class="sr-only">Github</span><i class="fa fa-fw fa-github"></i></a>
+                                <a href="https://github.com/chiroya" id="github" class="btn-social btn-outline"><span class="sr-only">Github</span><i class="fa fa-fw fa-github"></i></a>
                             </li>
                             <li>
-                                <a href="https://www.youtube.com/@chiroya" class="btn-social btn-outline"><span class="sr-only">Youtube</span><i class="fa fa-fw fa-youtube"></i></a>
+                                <a href="https://www.youtube.com/@chiroya" id="youtube" class="btn-social btn-outline"><span class="sr-only">Youtube</span><i class="fa fa-fw fa-youtube"></i></a>
                             </li>
                             <li>
-                                <a href="https://twitter.com/chiroya_sumi" class="btn-social btn-outline"><span class="sr-only">Twitter</span><i class="fa fa-fw fa-twitter"></i></a>
+                                <a href="https://twitter.com/chiroya_sumi" id="twitter" class="btn-social btn-outline"><span class="sr-only">Twitter</span><i class="fa fa-fw fa-twitter"></i></a>
                             </li>
                         </ul>
                     </div>
@@ -452,9 +416,13 @@
     <!-- Load cubism 4 integrated loader -->
     <script src="https://cdn.jsdelivr.net/npm/pixi-live2d-display@0.3.1/dist/cubism4.min.js"></script>
 
-    <!-- Load l2dmodel loader -->
 
 
+    <!-- Load l2d-model loaders -->
+    <link href="module/l2d/lib/pio.css" rel="stylesheet" type="text/css"/>
+    <script src="module/l2d/lib/pio.js"></script>
+    <script src="module/l2d/lib/pio_sdk4.js"></script>
+    <script src="module/l2d/lib/load.js"></script>
 
 
 
