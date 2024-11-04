@@ -90,7 +90,7 @@ var Paul_Pio = function (prop) {
             if (document.referrer !== "" && document.referrer.indexOf(current.root) === -1) {
                 var referrer = document.createElement('a');
                 referrer.href = document.referrer;
-                prop.content.referer ? modules.render(prop.content.referer.replace(/%t/, "“" + referrer.hostname + "”")) : modules.render("어서오세요! “" + referrer.hostname + "” 에서 오셨군요!");
+                prop.content.referer ? modules.render(prop.content.referer.replace(/%t/, "“" + referrer.hostname + "”")) : modules.render("어서오세요! “" + referrer.hostname + "” 환경에서 구동중입니다.");
             }
             else if (prop.tips) {
                 var text, hour = new Date().getHours();
