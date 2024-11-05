@@ -95,11 +95,11 @@ var Paul_Pio = function (prop) {
             else if (prop.tips) {
                 var text, hour = new Date().getHours();
                 if (hour > 1 && hour <= 5) text = '밤이 늦었는데 아직도 안 주무시구...';
-                else if (hour > 6 && hour <= 8) text = '좋은 아침이에요! 부지런하시네요∼';
-                else if (hour > 9 && hour <= 11) text = '오전 일과 화이팅! 졸리면 커피 한 잔 어떠세요?';
-                else if (hour > 11 && hour <= 14) text = '점심 시간이네요∼ 점심 맛있게 드세요!';
+                else if (hour > 6 && hour <= 8) text = '좋은 아침이에요! <br> 부지런하시네요∼';
+                else if (hour > 9 && hour <= 11) text = '오전 일과 화이팅! <br> 졸리면 커피 한 잔 어떠세요?';
+                else if (hour > 11 && hour <= 14) text = '점심 시간이네요∼ <br> 점심 맛있게 드세요!';
                 else if (hour > 14 && hour <= 17) text = '오후 일과 화이팅! 피곤하면 스트레칭 어떠세요?';
-                else if (hour > 17 && hour <= 19) text = '오늘도 고생하셨어요! 저녁식사 맛있게 하세요∼';
+                else if (hour > 17 && hour <= 19) text = '오늘도 고생하셨어요! <br> 저녁식사 맛있게 하세요∼';
                 else if (hour > 19 && hour <= 22) text = '저녁은 맛있게 드셨나요? 푹 쉬세요∼';
                 else if (hour > 22 && hour <= 0) text = '오늘도 이만, 안녕히 주무세요∼';
                 else text = "후아암∼";
