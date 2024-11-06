@@ -11,3 +11,4 @@
 - 241101 Update the 'scroll-to-the-top', Add the 'highlight' Vendor
 - 241102 Fix the 'scroll-to-the-top' for the Touchable Devices (short click | long click)
 - 241105 Add the 'Live2D Model' Container (Used as the sample for the test)
+  - References : https://github.com/journey-ad/nocilol.me
