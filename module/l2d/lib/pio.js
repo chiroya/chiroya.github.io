@@ -87,7 +87,7 @@ var Paul_Pio = function (prop) {
                 referrer.href = document.referrer;
                 prop.content.referer ? 
                     modules.render(prop.content.referer.replace(/%t/, "“" + referrer.hostname + "”"), true) : 
-                    modules.render("어서오세요! “" + referrer.hostname + "” 환경에서 <br> 구동 중입니다.", true);
+                    modules.render("어서오세요! “" + referrer.hostname + "”  <br> 환경에서 오셨군요!", true);
             }
             else if (prop.tips) {
                 var text, hour = new Date().getHours();
