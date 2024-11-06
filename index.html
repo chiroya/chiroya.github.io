@@ -14,15 +14,22 @@
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
 
     <title>Chiroya's Atelier</title>
 
 
-    <!-- Custom(add-on) CSS -->
-    <link rel="stylesheet" href="/css/addon-style.css">
+
+
+
+    <!-- Load l2d-model loaders -->
+    <link href="module/l2d/lib/pio.css" rel="stylesheet" type="text/css"/>
+    <script src="module/l2d/lib/pio.js"></script>
+    <script src="module/l2d/lib/pio_sdk4.js"></script>
+    <script src="module/l2d/lib/load.js"></script>
+
+
 
     <!-- Bootstrap Core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -48,8 +55,8 @@
     <!-- Swiper Custom CSS -->
     <link href="css/swiper-style.css" rel="stylesheet"/>
 
-
-
+    <!-- Custom(add-on) CSS -->
+    <link rel="stylesheet" href="css/addon-style.css">
 
 
 
@@ -66,9 +73,8 @@
 
 
 
-
 <body id="page-top" class="index">
-<div id="skipnav"><a href="#maincontent">Skip to main content</a></div>
+
 
 
     <!-- Preloading Animation -->
@@ -96,6 +102,10 @@
             </div>
         </div>
     </div>
+
+
+
+<div id="skipnav"><a href="#maincontent">Skip to main content</a></div>
 
 
 
@@ -134,8 +144,6 @@
 
 
 
-
-
     <!-- Header -->
     <header>
         <div class="container" id="maincontent" tabindex="-1">
@@ -151,11 +159,6 @@
             </div>
         </div>
     </header>
-
-
-
-
-
 
 
 
@@ -186,14 +189,6 @@
 
 
 
-
-
-
-
-
-
-
-
     <!-- About Section -->
     <section class="success" id="about">
         <div class="container">
@@ -218,20 +213,6 @@
             </div>
         </div>
     </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -289,13 +270,6 @@
             </div>
         </div>
     </section>
-
-
-
-
-
-
-
 
 
     <!-- Footer -->
@@ -363,19 +337,11 @@
 
 
 
-
-
-
-
-
     <!-- jQuery -->
     <script src="vendor/jquery/jquery.min.js"></script>
 
     <!-- Highlight -->
     <script src="vendor/highlight/highlight.pack.js"></script>
-
-    <!-- TweenLite -->
-    <script src="https://cdn.jsdelivr.net/npm/greensock@1.20.2/dist/TweenLite.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
@@ -392,7 +358,7 @@
 
     <!-- Custom Cursor JS -->
     <script src="js/custom-cursor.js"></script>
-
+    <!-- Custom TopScroller JS -->
     <script src="/js/jittomi-nige.js"></script>
 
     <!-- Page-Preloader JS -->
@@ -407,22 +373,18 @@
 
 
 
+    <!-- Load TweenLite -->
+    <script src="https://cdn.jsdelivr.net/npm/greensock@1.20.2/dist/TweenLite.js?v=1"></script>
+
     <!-- Copyrighted cubism SDK -->
-    <script src="https://cubism.live2d.com/sdk-web/cubismcore/live2dcubismcore.min.js"></script>
+    <script src="https://cubism.live2d.com/sdk-web/cubismcore/live2dcubismcore.min.js?v=1"></script>
 
     <!-- Load Pixi (dependency for cubism 2/4 integrated loader) -->
-    <script src="https://cdn.jsdelivr.net/npm/pixi.js@5.3.6/dist/pixi.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pixi.js@5.3.6/dist/pixi.min.js?v=1"></script>
 
     <!-- Load cubism 4 integrated loader -->
-    <script src="https://cdn.jsdelivr.net/npm/pixi-live2d-display@0.3.1/dist/cubism4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pixi-live2d-display@0.3.1/dist/cubism4.min.js?v=1"></script>
 
-
-
-    <!-- Load l2d-model loaders -->
-    <link href="module/l2d/lib/pio.css" rel="stylesheet" type="text/css"/>
-    <script src="module/l2d/lib/pio.js"></script>
-    <script src="module/l2d/lib/pio_sdk4.js"></script>
-    <script src="module/l2d/lib/load.js"></script>
 
 
 

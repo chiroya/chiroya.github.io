@@ -11,7 +11,6 @@ var Paul_Pio = function (prop) {
     var that = this;
 
     var current = {
-        idol: 0,
         menu: document.querySelector(".pio-container .pio-action"),
         canvas: document.getElementById("pio"),
         body: document.querySelector(".pio-container"),
@@ -20,11 +19,7 @@ var Paul_Pio = function (prop) {
 
     /* - 모듈 */
     var modules = {
-        // 모델 교체
-        idol: function () {
-            current.idol < (prop.model.length - 1) ? current.idol++ : current.idol = 0;
-            return current.idol;
-        },
+
         // 내용 만들기
         create: function (tag, prop) {
             var e = document.createElement(tag);
@@ -90,7 +85,7 @@ var Paul_Pio = function (prop) {
             if (document.referrer !== "" && document.referrer.indexOf(current.root) === -1) {
                 var referrer = document.createElement('a');
                 referrer.href = document.referrer;
-                prop.content.referer ? modules.render(prop.content.referer.replace(/%t/, "“" + referrer.hostname + "”")) : modules.render("어서오세요! “" + referrer.hostname + "” 환경에서 구동중입니다.");
+                prop.content.referer ? modules.render(prop.content.referer.replace(/%t/, "“" + referrer.hostname + "”")) : modules.render("어서오세요! “" + referrer.hostname + "” 환경에서 <br> 구동 중입니다.");
             }
             else if (prop.tips) {
                 var text, hour = new Date().getHours();
@@ -98,9 +93,9 @@ var Paul_Pio = function (prop) {
                 else if (hour > 6 && hour <= 8) text = '좋은 아침이에요! <br> 부지런하시네요∼';
                 else if (hour > 9 && hour <= 11) text = '오전 일과 화이팅! <br> 졸리면 커피 한 잔 어떠세요?';
                 else if (hour > 11 && hour <= 14) text = '점심 시간이네요∼ <br> 점심 맛있게 드세요!';
-                else if (hour > 14 && hour <= 17) text = '오후 일과 화이팅! 피곤하면 스트레칭 어떠세요?';
+                else if (hour > 14 && hour <= 17) text = '오후 일과 화이팅! <br> 피곤하면 스트레칭 어떠세요?';
                 else if (hour > 17 && hour <= 19) text = '오늘도 고생하셨어요! <br> 저녁식사 맛있게 하세요∼';
-                else if (hour > 19 && hour <= 22) text = '저녁은 맛있게 드셨나요? 푹 쉬세요∼';
+                else if (hour > 19 && hour <= 22) text = '저녁은 맛있게 드셨나요? <br> 푹 쉬세요∼';
                 else if (hour > 22 && hour <= 0) text = '오늘도 이만, 안녕히 주무세요∼';
                 else text = "후아암∼";
                 modules.render(text);
@@ -116,17 +111,6 @@ var Paul_Pio = function (prop) {
         },
         // 측면 버튼
         buttons: function () {
-            // 모델 교체
-            elements.skin.onclick = function () {
-                that.model = loadlive2d("pio", prop.model[modules.idol()], model => {
-                    prop.onModelLoad && prop.onModelLoad(model);
-                    prop.content.skin && prop.content.skin[1] ? modules.render(prop.content.skin[1]) : modules.render("새 옷 예쁘죠?");
-                });
-            };
-            elements.skin.onmouseover = function () {
-                prop.content.skin && prop.content.skin[0] ? modules.render(prop.content.skin[0]) : modules.render("저의 새 옷 좀 보실래요?");
-            };
-            if (prop.model.length > 1) current.menu.appendChild(elements.skin);
 
             // About Me
             elements.info.onclick = function () {
@@ -283,6 +267,18 @@ var Paul_Pio = function (prop) {
         };
     };
 
-    localStorage.getItem("posterGirl") == 0 ? this.initHidden() : this.init();
+    // 처음 방문 시 모델이 표시되도록 초기 설정
+    if (!localStorage.getItem("posterGirl")) {
+        // 처음 방문이므로 모델을 표시하고, localStorage에 값 설정
+        this.init();
+        localStorage.setItem("posterGirl", "1"); // 첫 방문을 표시하기 위해 설정
+    } else if (localStorage.getItem("posterGirl") == "0") {
+        // 이미 방문했고 posterGirl 값이 0이면 모델 숨기기
+        this.initHidden();
+    } else {
+        // 그 외 경우 (값이 1일 경우)에는 모델을 표시
+        this.init();
+    }
+
 };
 

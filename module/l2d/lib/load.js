@@ -43,7 +43,7 @@ function loadKaren() {
 function onModelLoad(model) {
   const container = document.getElementById("pio-container")
   const canvas = document.getElementById("pio")
-  const modelNmae = model.internalModel.settings.name
+  const modelName = model.internalModel.settings.name
   const coreModel = model.internalModel.coreModel
   const motionManager = model.internalModel.motionManager
 
@@ -86,18 +86,18 @@ function onModelLoad(model) {
     playAction(action)
   }
 
-  if (modelNmae === "Diana") {
+  if (modelName === "Diana") {
     container.dataset.model = "Diana"
     initConfig.content.skin[1] = ["Diana 라고 해요! 잘 부탁드려요∼"]
     playAction({ motion: "Tap抱阿草-左手" })
 
     touchList = [
       {
-        text: "우우...",
+        text: "우우... 자꾸 귀찮게 하지 마세요.",
         motion: "Tap生气 -领结"
       },
       {
-        text: "짓궂게 하는 사람이 보이는데, <br>누구인지는 말씀 안드릴게요",
+        text: "짓궂게 하는 사람이 보이는데, <br>누구인지는 말씀 안 드릴게요.",
         motion: "Tap= =  左蝴蝶结"
       },
       {
@@ -109,7 +109,7 @@ function onModelLoad(model) {
         motion: "Tap害羞-中间刘海"
       },
       {
-        text: "푹신푹신∼",
+        text: "푹신푹신∼♡",
         motion: "Tap抱阿草-左手"
       },
       {
@@ -117,7 +117,7 @@ function onModelLoad(model) {
         motion: "Tap摇头- 身体"
       },
       {
-        text: "우와아...",
+        text: "우와아앙...",
         motion: "Tap耳朵-发卡"
       },
       {
@@ -125,35 +125,15 @@ function onModelLoad(model) {
         motion: "Leave"
       },
       {
-        text: "와아! 행복해요!",
+        text: "와아! 행복해요∼♡",
         motion: "Tap右头发"
       },
     ]
-
-  } else if (modelNmae === "#") {
-
-
-
-
-    canvas.width = model.width * 1.2
-    const hideParts = [
-      "Part5", // 어지러움
-      "neko", // 냥냥펀치
-      "game", // 왼손 게임패드
-      "Part15", // 선글라스
-      "Part21", // 오른 팔뚝
-      "Part22", // 늘어지는 왼손
-      "Part", // 양손 주먹
-      "Part16", // 깜짝이야
-      "Part12" // 조심조심
-    ]
-    const hidePartsIndex = hideParts.map(id => coreModel._partIds.indexOf(id))
-    hidePartsIndex.forEach(idx => {
-      coreModel._partOpacities[idx] = 0
-    })
-  }
+  } 
 }
 
 
 var pio_reference
-window.onload = loadKaren
+window.addEventListener('load', loadKaren)
+
+

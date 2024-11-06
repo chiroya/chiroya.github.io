@@ -20,7 +20,7 @@ body::before {
   background-position: right 50px bottom 30px;
   background-size: auto 30vw;
   background-repeat: no-repeat;
-  z-index: -1;
+  z-index: -22;
   pointer-events: none;
 }
 

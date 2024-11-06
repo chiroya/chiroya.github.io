@@ -144,7 +144,7 @@ function _pio_initialize_pixi() {
 
 // change alignment to left by modifying this value in other script.
 // Make sure to call `pio_refresh_style` to apply changes!
-let pio_alignment = "right"
+let pio_alignment = "left"
 
 
 let app
