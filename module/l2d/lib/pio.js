@@ -31,7 +31,7 @@ var Paul_Pio = function (prop) {
             return arr[Math.floor(Math.random() * arr.length + 1) - 1];
         },
         // 대화 상자 생성
-        render: function (text) {
+        render: function (text, isWelcome = false) { // isWelcome 파라미터 추가)
             if (text.constructor === Array) {
                 dialog.innerHTML = modules.rand(text);
             }
@@ -47,7 +47,7 @@ var Paul_Pio = function (prop) {
             clearTimeout(this.t);
             this.t = setTimeout(function () {
                 dialog.classList.remove("active");
-            }, 3000);
+            }, isWelcome ? 6000 : 3000); // welcome 메시지는 6초, 나머지는 3초
         },
         // 제거
         destroy: function () {
@@ -85,7 +85,9 @@ var Paul_Pio = function (prop) {
             if (document.referrer !== "" && document.referrer.indexOf(current.root) === -1) {
                 var referrer = document.createElement('a');
                 referrer.href = document.referrer;
-                prop.content.referer ? modules.render(prop.content.referer.replace(/%t/, "“" + referrer.hostname + "”")) : modules.render("어서오세요! “" + referrer.hostname + "” 환경에서 <br> 구동 중입니다.");
+                prop.content.referer ? 
+                    modules.render(prop.content.referer.replace(/%t/, "“" + referrer.hostname + "”"), true) : 
+                    modules.render("어서오세요! “" + referrer.hostname + "” 환경에서 <br> 구동 중입니다.", true);
             }
             else if (prop.tips) {
                 var text, hour = new Date().getHours();
@@ -98,9 +100,9 @@ var Paul_Pio = function (prop) {
                 else if (hour > 19 && hour <= 22) text = '저녁은 맛있게 드셨나요? <br> 푹 쉬세요∼';
                 else if (hour > 22 && hour <= 0) text = '오늘도 이만, 안녕히 주무세요∼';
                 else text = "후아암∼";
-                modules.render(text);
+                modules.render(text, true);
             } else {
-                modules.render(prop.content.welcome || "어서오세요∼");
+                modules.render(prop.content.welcome || "어서오세요∼", true);
             }
         },
         // 터치 시 대사
