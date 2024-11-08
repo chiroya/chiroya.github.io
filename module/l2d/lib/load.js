@@ -7,7 +7,7 @@ const initConfig = {
   hidden: true,
   content: {
     link: linkers[Math.floor(Math.random() * linkers.length)],
-    welcome: ["Hi!"],
+    welcome: ["어서오세요!"],
     touch: "",
     skin: ["잠깐 어디 좀 다녀올게요∼"],
     custom: [

@@ -9,7 +9,6 @@
 ---- */
 var Paul_Pio = function (prop) {
     var that = this;
-
     var current = {
         menu: document.querySelector(".pio-container .pio-action"),
         canvas: document.getElementById("pio"),
@@ -47,7 +46,7 @@ var Paul_Pio = function (prop) {
             clearTimeout(this.t);
             this.t = setTimeout(function () {
                 dialog.classList.remove("active");
-            }, isWelcome ? 6000 : 3000); // welcome 메시지는 6초, 나머지는 3초
+            }, isWelcome ? 7000 : 3500); // welcome 메시지는 6초, 나머지는 3초
         },
         // 제거
         destroy: function () {
@@ -79,18 +78,30 @@ var Paul_Pio = function (prop) {
     current.body.appendChild(dialog);
     current.body.appendChild(elements.show);
 
+
+    // 프리로더가 사라질 때까지 기다리는 함수
+    function waitForPreloaderToDisappear(callback) {
+        const preloader = document.querySelector('.preloader');
+        if (!preloader || preloader.style.display === 'none' || preloader.style.opacity === '0') {
+            callback();
+        } else {
+            setTimeout(() => waitForPreloaderToDisappear(callback), 100);
+        }
+    }
+
     /* - 조작 */
     var action = {
         welcome: function () {
+            var text;
             if (document.referrer !== "" && document.referrer.indexOf(current.root) === -1) {
                 var referrer = document.createElement('a');
                 referrer.href = document.referrer;
-                prop.content.referer ? 
-                    modules.render(prop.content.referer.replace(/%t/, "“" + referrer.hostname + "”"), true) : 
-                    modules.render("어서오세요! “" + referrer.hostname + "”  <br> 환경에서 오셨군요!", true);
+                text = prop.content.referer ?
+                    prop.content.referer.replace(/%t/, '"' + referrer.hostname + '"') :
+                    '어서오세요! "' + referrer.hostname + '"  <br> 환경에서 오셨군요!';
             }
             else if (prop.tips) {
-                var text, hour = new Date().getHours();
+                var hour = new Date().getHours();
                 if (hour > 1 && hour <= 5) text = '밤이 늦었는데 아직도 안 주무시구...';
                 else if (hour > 6 && hour <= 8) text = '좋은 아침이에요! <br> 부지런하시네요∼';
                 else if (hour > 9 && hour <= 11) text = '오전 일과 화이팅! <br> 졸리면 커피 한 잔 어떠세요?';
@@ -100,10 +111,14 @@ var Paul_Pio = function (prop) {
                 else if (hour > 19 && hour <= 22) text = '저녁은 맛있게 드셨나요? <br> 푹 쉬세요∼';
                 else if (hour > 22 && hour <= 0) text = '오늘도 이만, 안녕히 주무세요∼';
                 else text = "후아암∼";
-                modules.render(text, true);
             } else {
-                modules.render(prop.content.welcome || "어서오세요∼", true);
+                text = prop.content.welcome || "어서오세요∼";
             }
+
+            // welcome 메시지를 프리로더가 사라진 후에 표시
+            waitForPreloaderToDisappear(() => {
+                modules.render(text, true);
+            });
         },
         // 터치 시 대사
         touch: function () {
