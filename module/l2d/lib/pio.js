@@ -59,6 +59,20 @@ var Paul_Pio = function (prop) {
             ua = ua.indexOf("mobile") || ua.indexOf("android") || ua.indexOf("ios");
 
             return window.innerWidth < 500 || ua !== -1;
+        },
+        // 하드웨어 가속 상태 확인
+        checkHardwareAcceleration: function() {
+            // PIXI.js가 로드되었는지 확인
+            if (typeof PIXI !== 'undefined' && PIXI.utils && PIXI.utils.isWebGLSupported) {
+                return PIXI.utils.isWebGLSupported();
+            }
+            // PIXI.js가 로드되지 않았거나 함수가 없는 경우 기본 WebGL 체크
+            try {
+                var canvas = document.createElement('canvas');
+                return !!(window.WebGLRenderingContext && (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')));
+            } catch(e) {
+                return false;
+            }
         }
     };
     this.modules = modules;
@@ -93,7 +107,10 @@ var Paul_Pio = function (prop) {
     var action = {
         welcome: function () {
             var text;
-            if (document.referrer !== "" && document.referrer.indexOf(current.root) === -1) {
+            if (!modules.checkHardwareAcceleration()) {
+                text = "현재 하드웨어 가속이 꺼져있습니다. <br> 설정을 켜주세요.";
+            }
+            else if (document.referrer !== "" && document.referrer.indexOf(current.root) === -1) {
                 var referrer = document.createElement('a');
                 referrer.href = document.referrer;
                 text = prop.content.referer ?
@@ -123,7 +140,11 @@ var Paul_Pio = function (prop) {
         // 터치 시 대사
         touch: function () {
             current.canvas.onclick = function () {
-                modules.render(prop.content.touch || ["지금 어딜 만지시는건가요", "자꾸 그러면 화낼거에요?", "만지지 마세요!"]);
+                if (!modules.checkHardwareAcceleration()) {
+                    modules.render("현재 하드웨어 가속이 꺼져있습니다. 설정을 켜주세요.");
+                } else {
+                    modules.render(prop.content.touch || ["지금 어딜 만지시는건가요", "자꾸 그러면 화낼거에요?", "만지지 마세요!"]);
+                }
             };
         },
         // 측면 버튼
