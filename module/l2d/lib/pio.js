@@ -141,7 +141,7 @@ var Paul_Pio = function (prop) {
         touch: function () {
             current.canvas.onclick = function () {
                 if (!modules.checkHardwareAcceleration()) {
-                    modules.render("현재 하드웨어 가속이 꺼져있습니다. 설정을 켜주세요.");
+                    modules.render("현재 하드웨어 가속이 꺼져있습니다. <br> 설정을 켜주세요.");
                 } else {
                     modules.render(prop.content.touch || ["지금 어딜 만지시는건가요", "자꾸 그러면 화낼거에요?", "만지지 마세요!"]);
                 }
