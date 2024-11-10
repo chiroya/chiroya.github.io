@@ -139,14 +139,30 @@ var Paul_Pio = function (prop) {
         },
         // 터치 시 대사
         touch: function () {
-            current.canvas.onclick = function () {
+            function handleTouch(event) {
+                event.preventDefault();
                 if (!modules.checkHardwareAcceleration()) {
                     modules.render("현재 하드웨어 가속이 꺼져있습니다. <br> 설정을 켜주세요.");
                 } else {
                     modules.render(prop.content.touch || ["지금 어딜 만지시는건가요", "자꾸 그러면 화낼거에요?", "만지지 마세요!"]);
                 }
             };
+            current.canvas.onclick = handleTouch;
+            current.canvas.ontouchstart = handleTouch;
+
+            // pio-container에 대한 이벤트 처리
+            current.body.onclick = function(event) {
+                if (event.target === current.body) {
+                    handleTouch(event);
+                }
+            };
+            current.body.ontouchstart = function(event) {
+                if (event.target === current.body) {
+                    handleTouch(event);
+                }
+            };
         },
+        
         // 측면 버튼
         buttons: function () {
 

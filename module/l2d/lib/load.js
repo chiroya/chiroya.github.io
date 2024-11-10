@@ -25,18 +25,14 @@ const initConfig = {
   onModelLoad: onModelLoad
 }
 
-
+// 야간 모드 전환
 function toggleNightMode() {
-  // body 요소에 night-mode 클래스를 토글하여 야간 모드 전환
   document.body.classList.toggle("night-mode");
 }
 
 function loadKaren() {
   pio_reference = new Paul_Pio(initConfig)
-
   pio_alignment = "left"
-
-  // Then apply style
   pio_refresh_style()
 }
 
@@ -66,25 +62,39 @@ function onModelLoad(model) {
       Object.keys(action.from).forEach(id => {
         const hidePartIndex = coreModel._partIds.indexOf(id)
         TweenLite.to(coreModel._partOpacities, 0.6, { [hidePartIndex]: action.from[id] });
-        // coreModel._partOpacities[hidePartIndex] = action.from[id]
       })
 
       motionManager.once("motionFinish", (data) => {
         Object.keys(action.to).forEach(id => {
           const hidePartIndex = coreModel._partIds.indexOf(id)
           TweenLite.to(coreModel._partOpacities, 0.6, { [hidePartIndex]: action.to[id] });
-          // coreModel._partOpacities[hidePartIndex] = action.to[id]
         })
       })
     }
   }
 
-  canvas.onclick = function () {
+  function handleInteraction(event) {
+    event.preventDefault(); // 기본 동작 방지
     if (motionManager.state.currentGroup !== "Idle") return
 
     const action = pio_reference.modules.rand(touchList)
     playAction(action)
   }
+
+  canvas.onclick = handleInteraction;
+  canvas.ontouchstart = handleInteraction;
+
+  // pio-container에 대한 이벤트 처리
+  container.onclick = function(event) {
+    if (event.target === container) {
+      handleInteraction(event);
+    }
+  };
+  container.ontouchstart = function(event) {
+    if (event.target === container) {
+      handleInteraction(event);
+    }
+  };
 
   if (modelName === "Diana") {
     container.dataset.model = "Diana"
@@ -132,8 +142,5 @@ function onModelLoad(model) {
   } 
 }
 
-
 var pio_reference
 window.addEventListener('DOMContentLoaded', loadKaren)
-
-
