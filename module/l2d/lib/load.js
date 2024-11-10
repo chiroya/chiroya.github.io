@@ -38,13 +38,6 @@ function loadKaren() {
 
   // Then apply style
   pio_refresh_style()
-
-  const container = document.getElementById("pio-container")
-  container.addEventListener('click', function(event) {
-    if (event.button === 2) {
-      container.classList.toggle('active');
-    }
-  });
 }
 
 function onModelLoad(model) {
@@ -92,22 +85,6 @@ function onModelLoad(model) {
     const action = pio_reference.modules.rand(touchList)
     playAction(action)
   }
-
-
-
-
-  document.addEventListener('click', function(event) {
-    if (event.button === 0 && event.detail === 1) {
-      canvas.onclick();
-    } else if (event.button === 2) {
-      // 오른쪽 버튼 클릭 시 메뉴를 보이게 하기
-      const container = document.getElementById("pio-container")
-      container.classList.toggle('active');
-    }
-  });
-
-
-
 
   if (modelName === "Diana") {
     container.dataset.model = "Diana"
