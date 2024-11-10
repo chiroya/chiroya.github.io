@@ -1,43 +1,48 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const pioElement = document.querySelector('.pio-element'); // 대상 요소
-    const pioAction = document.querySelector('.pio-action'); // .pio-action 요소
-    const pioDialog = document.querySelector('.pio-dialog'); // 대사 요소
+document.addEventListener("DOMContentLoaded", () => {
+    const container = document.querySelector(".pio-container");
+    if (!container) return;
 
-    let touchStartTime = 0; // 터치 시작 시간
+    const LONG_PRESS_TIME = 500; // 긴 터치로 간주할 시간 (밀리초)
+    let touchStartTime = 0;
+    let longPressTimeout;
+    let isLongPress = false;
+
+    const addHoverEffect = () => container.classList.add("hover-effect");
+    const removeHoverEffect = () => container.classList.remove("hover-effect");
 
     // 터치 시작 이벤트
-    pioElement.addEventListener('touchstart', (e) => {
+    container.addEventListener("touchstart", (e) => {
+        e.preventDefault(); // 기본 동작 방지 (예: 스크롤)
+        isLongPress = false;
         touchStartTime = Date.now();
+
+        longPressTimeout = setTimeout(() => {
+            isLongPress = true;
+            addHoverEffect(); // 긴 터치 시 hover 효과 적용
+        }, LONG_PRESS_TIME);
+    });
+
+    // 터치 이동 시 긴 터치 취소
+    container.addEventListener("touchmove", () => {
+        clearTimeout(longPressTimeout);
+        removeHoverEffect();
     });
 
     // 터치 종료 이벤트
-    pioElement.addEventListener('touchend', (e) => {
-        const touchDuration = Date.now() - touchStartTime;
+    container.addEventListener("touchend", (e) => {
+        clearTimeout(longPressTimeout);
 
-        // 긴 터치 판단 (500ms 이상일 경우 긴 터치로 간주)
-        if (touchDuration >= 500) {
-            pioAction.style.display = 'block'; // .pio-action 표시
+        if (isLongPress) {
+            // 긴 터치 후 동작 (hover 효과 유지)
+            console.log("긴 터치: hover 효과 유지");
         } else {
-            // 짧은 터치로 간주
-            pioDialog.style.display = 'block'; // 대사 표시
+            // 짧은 터치 동작 (클릭)
+            console.log("짧은 터치: onclick 동작 실행");
+            removeHoverEffect(); // 짧은 터치 후 hover 효과 제거
+            // pio.js에서 제공하는 클릭 동작 실행 (예: toggle)
+            if (typeof window.pioClickHandler === "function") {
+                window.pioClickHandler();
+            }
         }
     });
-
-    // PC 환경에서는 hover로 .pio-action 표시
-    pioElement.addEventListener('mouseenter', () => {
-        if (!isTouchDevice()) {
-            pioAction.style.display = 'block';
-        }
-    });
-
-    pioElement.addEventListener('mouseleave', () => {
-        if (!isTouchDevice()) {
-            pioAction.style.display = 'none';
-        }
-    });
-
-    // 터치 장치 여부 확인 함수
-    function isTouchDevice() {
-        return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    }
 });
