@@ -40,7 +40,6 @@ function loadKaren() {
   pio_refresh_style()
 }
 
-
 function onModelLoad(model) {
   const container = document.getElementById("pio-container")
   const canvas = document.getElementById("pio")
@@ -135,6 +134,6 @@ function onModelLoad(model) {
 
 
 var pio_reference
-window.addEventListener('load', loadKaren)
+window.addEventListener('DOMContentLoaded', loadKaren)
 
 
