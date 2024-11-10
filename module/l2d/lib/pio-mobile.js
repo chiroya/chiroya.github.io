@@ -1,7 +1,14 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('load', function() {
+function initPioMobile() {
     const pioContainer = document.querySelector('.pio-container');
     const pioAction = document.querySelector('.pio-action');
     const canvas = document.getElementById('pio');
+
+    // 필요한 요소들이 존재하는지 확인
+    if (!pioContainer || !pioAction || !canvas) {
+        console.error('Required elements not found. Make sure .pio-container, .pio-action, and #pio exist in the DOM.');
+        return;
+    }
 
     let touchStartTime;
     let touchTimer;
@@ -52,5 +59,13 @@ document.addEventListener('DOMContentLoaded', function() {
         // PC 환경에서는 hover 동작 유지
         pioContainer.addEventListener('mouseenter', showAction);
         pioContainer.addEventListener('mouseleave', hideAction);
+    }
+}
+
+// DOM이 완전히 로드된 후 초기화 함수 실행
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPioMobile);
+} else {
+    initPioMobile();
     }
 });
