@@ -46,7 +46,7 @@ var Paul_Pio = function (prop) {
             clearTimeout(this.t);
             this.t = setTimeout(function () {
                 dialog.classList.remove("active");
-            }, isWelcome ? 7000 : 3500); // welcome 메시지는 6초, 나머지는 3초
+            }, isWelcome ? 6000 : 3000); // welcome 메시지는 6초, 나머지는 3초
         },
         // 제거
         destroy: function () {
